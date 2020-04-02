@@ -24,3 +24,12 @@ in browser hit
 http://localhost:8000/admin
 
 ---------------------------------------------------
+
+Part 2 - Applications and Routes
+
+a single project can contain multiple apps (e.g. blog, store)
+
+create a new app
+> python manage.py startapp blog
+
+---------------------------------------------------
