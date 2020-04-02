@@ -1,0 +1,26 @@
+---------------------------------------------------
+
+Part 1 - Getting Started
+
+install django
+Successfully installed asgiref-3.2.7 django-3.0.5 pytz-2019.3 sqlparse-0.3.1
+
+> DjangoBlog>python -m django --version
+3.0.5
+
+lists subcommands available
+> django-admin
+
+starts our project will boilerplate files
+> django-admin startproject project
+
+install pylint
+Successfully installed astroid-2.3.3 colorama-0.4.3 isort-4.3.21 lazy-object-proxy-1.4.3 mccabe-0.6.1 pylint-2.4.4 six-1.14.0 wrapt-1.11.2
+
+start the web server
+> python manage.py runserver
+
+in browser hit
+http://localhost:8000/admin
+
+---------------------------------------------------
