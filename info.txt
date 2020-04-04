@@ -38,3 +38,23 @@ Part 3 - Templates
 
 
 ---------------------------------------------------
+
+Part 4 - Admin page
+
+create admin account (needs db first)
+
+1. detects changes in db and prepares to run migration
+> python manage.py makemigrations
+
+2. create db
+> python manage.py migrate
+
+3. create admin account
+> python manage.py createsuperuser
+username {dad}
+email {gmail}
+password {standard medium}
+
+4. add user1, TestPassword123
+
+---------------------------------------------------
