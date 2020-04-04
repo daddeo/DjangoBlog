@@ -1,25 +1,14 @@
 from django.shortcuts import render
+# . means from the models.py in the current package
+from .models import Post
 
 # from django.http import HttpResponse
 
-posts = [
-    {
-        "author": "John",
-        "title": "Post 1",
-        "content": "First post content",
-        "posted": "April 1, 2020",
-    },
-    {
-        "author": "Jane",
-        "title": "Post 2",
-        "content": "Second post content",
-        "posted": "April 2, 2020",
-    },
-]
-
 # Create your views here.
 def home(request):
-    context = {"posts": posts}
+    context = {
+        "posts": Post.objects.all()
+    }
     return render(request, "blog/home.html", context)
 
 

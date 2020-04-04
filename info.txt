@@ -58,3 +58,114 @@ password {standard medium}
 4. add user1, TestPassword123
 
 ---------------------------------------------------
+
+Part 5 - Database and Migrations
+
+Django has it's own built-in Object Relational Mapper (ORM)
+to work with database.
+
+after altering model classes (db classes), run migration
+> python manage.py makemigrations
+
+Migrations for 'blog':
+  blog\migrations\0001_initial.py
+    - Create model Post
+
+to seet the actual SQL that will be run:
+> python manage.py sqlmigrate blog 0001
+
+BEGIN;
+--
+-- Create model Post
+--
+CREATE TABLE "blog_post" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "title" varchar(100) NOT NULL, "content" text NOT NULL, "created" datetime NOT NULL, "posted" datetime NOT NULL, "updated" datetime NOT NULL, "author_id" integer NOT NULL REFERENCES "auth_user" ("id") DEFERRABLE INITIALLY DEFERRED);
+CREATE INDEX "blog_post_author_id_dd7a8485" ON "blog_post" ("author_id");
+COMMIT;
+
+run migration
+> python manage.py migrate
+
+Operations to perform:
+  Apply all migrations: admin, auth, blog, contenttypes, sessions
+Running migrations:
+  Applying blog.0001_initial... OK
+
+The Django ORM shell let's us interactively do the same thing line by line
+> python manage.py shell
+>>> from blog.models import Post
+>>> from django.contrib.auth.models import User
+>>> User.objects.all()
+<QuerySet [<User: dad>, <User: user1>]>
+>>> User.objects.first()
+<User: dad>
+>>> User.objects.filter(username="user1")
+<QuerySet [<User: user1>]>
+>>> user = User.objects.filter(username="user1").first()
+>>> user
+<User: user1>
+>>> user.pk
+2
+>>> user.id
+2
+>>> user.username
+'user1'
+>>> user = User.objects.get(id=1)
+>>> user
+<User: dad>
+>>> Post.objects.all()
+<QuerySet []>
+>>> post1 = Post(title="Blog 1", content="First Post Content.", author=user)
+>>> post1
+<Post: Post object (None)>
+>>> Post.objects.all()
+<QuerySet []>
+>>> post1.save()
+>>> Post.objects.all()
+<QuerySet [<Post: Post object (1)>]>
+
+added __str__ function to Post() and restarted shell
+>>> Post.objects.all()
+<QuerySet [<Post: Blog 1>]>
+>>> user = User.objects.filter(username="user1").first()
+>>> post = Post(title="Blog 2", content="Second Post Content.", author_id=user.id)
+>>> post.save()
+>>> Post.objects.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 2>]>
+>>> post = Post.objects.first()
+>>> post
+<Post: Blog 1>
+>>> post.content
+'First Post Content.'
+>>> post.posted
+datetime.datetime(2020, 4, 4, 2, 59, 20, 579093, tzinfo=<UTC>)
+>>> post.created
+datetime.datetime(2020, 4, 4, 3, 0, 12, 116285, tzinfo=<UTC>)
+>>> post.updated
+datetime.datetime(2020, 4, 4, 3, 0, 12, 116285, tzinfo=<UTC>)
+>>> post.author
+<User: dad>
+>>> post.author.email
+'jason.wallenfang@gmail.com'
+>>> post.author.username
+'dad'
+
+to get all posts written by a particular user
+can get the user then query posts filtering by user, but django adds a special option
+in form of {object}.{modelname}_set
+
+>>> user.post_set
+<django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x000001D0DE1CB7C0>
+>>> user.post_set.all()
+<QuerySet [<Post: Blog 2>]>
+>>> user.post_set.create(title="Blog 3", content="Third Post Content.")
+<Post: Blog 3>
+>>> user.post_set.all()
+<QuerySet [<Post: Blog 2>, <Post: Blog 3>]>
+>>> Post.objects.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 2>, <Post: Blog 3>]>
+
+
+in blog app directory, open admin.py, add our models
+and can edit model and objects in the admin page
+
+---------------------------------------------------

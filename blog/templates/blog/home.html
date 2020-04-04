@@ -5,7 +5,9 @@
     <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ post.author }}</a>
-            <small class="text-muted">{{ post.posted }}</small>
+            <!-- date formatting -->
+            <!-- https://docs.djangoproject.com/en/3.0/ref/templates/builtins/#date -->
+            <small class="text-muted">{{ post.posted|date:"l F d, Y" }} at {{ post.posted|time:"g:i:s a T" }}</small>
         </div>
         <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
