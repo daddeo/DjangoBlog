@@ -187,3 +187,51 @@ Part 7 - Login and Logout System
 
 ---------------------------------------------------
 
+Part 8 - User Profile and Picture
+
+* install pillow for managing images
+> python -m pip install Pillow
+
+> python manage.py makemigrations
+Migrations for 'users':
+  users\migrations\0001_initial.py
+    - Create model Profile
+
+> python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, blog, contenttypes, sessions, users
+Running migrations:
+  Applying users.0001_initial... OK
+
+* now register profile model in users app (admin.py)
+
+* look at user profile interactively
+> python manage.py shell
+>>> from django.contrib.auth.models import User
+>>> user = User.objects.filter(username="dad").first()
+>>> user
+<User: dad>
+>>> user.profile
+<Profile: dad Profile>
+>>> user.profile.image
+<ImageFieldFile: images/avatar.png>
+>>> user.profile.image.width
+1840
+>>> user.profile.image.height
+1840
+>>> user.profile.image.size
+84402
+>>> user.profile.image.url
+'images/avatar.png'
+>>> user = User.objects.filter(username="user1").first()
+>>> user
+<User: user1>
+>>> user.profile.image
+<ImageFieldFile: default.jpg>
+>>> user.profile.image.url
+'default.jpg'
+
+* copy default.jpg into media folder
+
+---------------------------------------------------
+

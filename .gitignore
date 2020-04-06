@@ -1,2 +1,5 @@
 venv
 __pycache__
+
+# would normally want this enabled, but for dev it's not now
+# migrations

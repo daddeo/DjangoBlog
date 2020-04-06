@@ -122,9 +122,21 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# if we don't set this then the images folder will appear at the same level as manage.py
+# for all app (e.g. blog, users)
+
+# where uploaded files are located on the file system (Django stores uploaded files there)
+# NOTE: will not retroactively affect existing files uploaded prior to setting these
+# variables.
+# full path to project's base directory and then append media
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# how we access the uploaded files in the browser (e.g. /media/images/{image name})
+MEDIA_URL = "/media/"
+
 # tell crisp forms which CSS framework to use, we want to use v4 not default of v2
 # or go online to find out other options
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'blog-home'
 LOGIN_URL = 'login'
+
