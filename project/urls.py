@@ -16,8 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# could just create a urls pattern in a new users/urls.py file like blob/urls.py and
+# import that into here instead
+from users import views as user_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("register/", user_views.register, name="register"),
     path('blog/', include("blog.urls")),
     path('', include("blog.urls")),
 ]

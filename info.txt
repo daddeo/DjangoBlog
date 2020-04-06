@@ -169,3 +169,17 @@ in blog app directory, open admin.py, add our models
 and can edit model and objects in the admin page
 
 ---------------------------------------------------
+
+Part 6 - User Registration
+
+add users app
+> python manage.py startapp users
+
+crispy-form (for styling forms in a bootstrap fashion in Django)
+install crispy-forms
+> python -m pip install django-crispy-forms
+
+add crispy-forms to project/settings.py file INSTALLED_APPS
+
+---------------------------------------------------
+
