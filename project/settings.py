@@ -125,3 +125,6 @@ STATIC_URL = '/static/'
 # tell crisp forms which CSS framework to use, we want to use v4 not default of v2
 # or go online to find out other options
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'blog-home'
+LOGIN_URL = 'login'

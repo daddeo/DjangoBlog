@@ -183,3 +183,7 @@ add crispy-forms to project/settings.py file INSTALLED_APPS
 
 ---------------------------------------------------
 
+Part 7 - Login and Logout System
+
+---------------------------------------------------
+
